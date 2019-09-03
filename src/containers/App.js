@@ -4,6 +4,23 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+    /* Former way (and still possible) to initialize state
+    this.state = {
+      persons : [
+        {id:'asd', name: 'David', age: 44},
+        {id:'fdas', name: 'Cris', age: 41},
+        {id:'rqwe', name: 'Alonso', age: 7},
+        {id:'fsgd', name: 'Helena', age: 4}
+      ], 
+      showPersons: false
+    }
+    */
+  }
+
+  // More Modern way to init state
   state = {
     persons : [
       {id:'asd', name: 'David', age: 44},
@@ -13,6 +30,19 @@ class App extends Component {
     ], 
     showPersons: false
   }
+  
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
 
   deletePersonHandler = (personIndex) => {
     //const persons = this.state.persons.slice();
@@ -20,7 +50,7 @@ class App extends Component {
     persons.splice(personIndex, 1);
     this.setState({persons: persons})
 
-  } 
+  }  
 
   nameChangeHandler = (event, id) => {
 
@@ -41,6 +71,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     let persons = null;
     
 
