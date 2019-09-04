@@ -17,7 +17,7 @@ const Cockpit = (props) => {
         // before the component is removed.
         return () => {
             console.log('[Cockpit.js] cleanup work in useEffect');
-            clearTimeout(timer);
+            clearTimeout(timer);  
         }
     }, 
     //The second argum ent for useEffect is an array that points to all 
@@ -56,10 +56,10 @@ const Cockpit = (props) => {
         btnClass = classes.Red;    
     }
     
-    if (props.persons.length <= 2) {
+    if (props.personsLength <= 2) {
       assignedClasses.push(classes.red);
     }
-    if (props.persons.length <= 1) {
+    if (props.personsLength <= 1) {
       assignedClasses.push(classes.bold);
     }
 
@@ -74,4 +74,4 @@ const Cockpit = (props) => {
     );
 };
 
-export default Cockpit;
+export default React.memo(Cockpit);
