@@ -11,6 +11,11 @@ const Cockpit = (props) => {
         setTimeout(() => {
             alert('Save data to cloud!')
         }, 1000 )
+        //The function returned by the useEffect will run before the main useEffect
+        // but after the (first because we are using [] as 2nd argument) render cycle
+        return () => {
+            console.log('[Cockpit.js] cleanup work in useEffect');
+        }
     }, 
     //The second argum ent for useEffect is an array that points to all 
     // the variables and data that is used on the effect. 
@@ -33,8 +38,12 @@ const Cockpit = (props) => {
     //useEffect(() => {}, [props.someValue])
     //useEffect(() => {}, [props.somothervalue])
 
-
-
+    useEffect(() => {
+        console.log('[Cockpit.js] 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        };
+    });
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {

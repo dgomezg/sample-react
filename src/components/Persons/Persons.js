@@ -32,6 +32,10 @@ class Persons extends Component {
         console.log(snapshot);
     }
 
+    componentWillUnmount() {
+        //Allows to do clean up when the component removed.
+        console.log('[Persons.js] componentWillUnmont')
+    }
     render() {
         console.log('[Persons.js] rendering...')
         return this.props.persons.map((person, index) => {
