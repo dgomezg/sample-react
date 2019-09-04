@@ -7,10 +7,10 @@ class Persons extends Component {
     //     return state;
     // }
 
-    componentWillReceiveProps(props) {
-        console.log('[Persons.js] componentWillReceiveProps', props);
-    }
-    
+    // componentWillReceiveProps(props) {
+    //     console.log('[Persons.js] componentWillReceiveProps', props);
+    // }
+
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
         return true;
@@ -22,7 +22,12 @@ class Persons extends Component {
         return { message: 'Snapshot!' }; 
     }
 
+    // componentWillUpdate() {        
+    // }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
+        //This is where you can fetch new data from the server
+        // i.e Invoking an HTTP request.
         console.log('[Persons.js] componentDidUpdate'); 
         console.log(snapshot);
     }
