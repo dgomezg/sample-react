@@ -45,6 +45,7 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    //Can be used for performance improvements
     console.log('[App.js] shouldComponentUpdate');
     return true;
   }
