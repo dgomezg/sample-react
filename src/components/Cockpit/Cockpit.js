@@ -8,13 +8,16 @@ const Cockpit = (props) => {
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         //Http request... (mocking an http request that takes 1 second)
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             alert('Save data to cloud!')
-        }, 1000 )
+        }, 3000 )
         //The function returned by the useEffect will run before the main useEffect
-        // but after the (first because we are using [] as 2nd argument) render cycle
+        // but after the (first) render cycle, so, the next time: as we are using
+        // ´[] as the second parameter, in fact, the function will be executed
+        // before the component is removed.
         return () => {
             console.log('[Cockpit.js] cleanup work in useEffect');
+            clearTimeout(timer);
         }
     }, 
     //The second argum ent for useEffect is an array that points to all 
@@ -42,8 +45,11 @@ const Cockpit = (props) => {
         console.log('[Cockpit.js] 2nd useEffect');
         return () => {
             console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+            //useful when you have operations that should be cancelled 
+            // before rendering the next time the component.
         };
     });
+
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {
