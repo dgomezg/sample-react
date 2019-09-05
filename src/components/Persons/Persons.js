@@ -10,12 +10,13 @@ class Persons extends Component {
     // componentWillReceiveProps(props) {
     //     console.log('[Persons.js] componentWillReceiveProps', props);
     // }
-
+    
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.js] shouldComponentUpdate');
         //Only render if the persons data has actually changed
-        return nextProps.persons !== this.props.persons;
-        
+        return nextProps.persons !== this.props.persons
+            || nextProps.changed !== this.props.changed
+            || nextProps.clicked !== this.props.clicked;
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -52,6 +53,6 @@ class Persons extends Component {
             );
           });
         };
-    }
+}
 
 export default Persons;
