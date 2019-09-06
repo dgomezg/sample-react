@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react' 
+
 import classes from './Cockpit.css'
+import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
 
@@ -13,6 +15,7 @@ const Cockpit = (props) => {
     , []);
     //useEffect takes a function that will be run for 
     // every render cycle 
+    /*
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         //Http request... (mocking an http request that takes 1 second)
@@ -57,7 +60,7 @@ const Cockpit = (props) => {
             // before rendering the next time the component.
         };
     });
-
+*/
     const assignedClasses = [];
     let btnClass = '';
     if (props.showPersons) {
@@ -78,8 +81,12 @@ const Cockpit = (props) => {
             <button ref={toggleButtonRef}
                 className={btnClass}
                 onClick={props.clicked}>Show/Hide persons</button>
-            <button onClick={props.login}>Log In</button>
-        </div>
+            <AuthContext.Consumer>
+                {context => 
+                    <button onClick={context.login}>Log In</button>
+                }
+            </AuthContext.Consumer>
+        </div> 
     );
 };
 
