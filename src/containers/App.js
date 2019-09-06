@@ -25,7 +25,7 @@ class App extends Component {
   // More Modern way to init state
   state = {
     persons : [
-      {id:'asd', name: 'David', age: 44},
+      {id:'asd', name: 'David', age: "44"},
       {id:'fdas', name: 'Cris', age: 41},
       {id:'rqwe', name: 'Alonso', age: 7},
       {id:'fsgd', name: 'Helena', age: 4}
