@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react' 
+import React, { useEffect, useRef } from 'react' 
 import classes from './Cockpit.css'
 
 const Cockpit = (props) => {
 
+    const toggleButtonRef = useRef(null);
+
+    //Using useEffect to click the toggleButtonRef once it has been initialized
+    // after rendering the JSX.
+    useEffect(() => {
+        toggleButtonRef.current.click();
+    }
+    , []);
     //useEffect takes a function that will be run for 
     // every render cycle 
     useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         //Http request... (mocking an http request that takes 1 second)
-        const timer = setTimeout(() => {
+        const timer = setTimeout(() => { 
             alert('Save data to cloud!')
         }, 3000 )
         //The function returned by the useEffect will run before the main useEffect
@@ -67,9 +75,9 @@ const Cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working</p>
-            <button 
-            className={btnClass}
-            onClick={props.clicked}>Show/Hide persons</button>
+            <button ref={toggleButtonRef}
+                className={btnClass}
+                onClick={props.clicked}>Show/Hide persons</button>
         </div>
     );
 };
