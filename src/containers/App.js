@@ -31,7 +31,8 @@ class App extends Component {
       {id:'fsgd', name: 'Helena', age: 4}
     ], 
     showPersons: false, 
-    showCockpit: true
+    showCockpit: true, 
+    changeCounter: 0
   }
   
   static getDerivedStateFromProps(props, state) {
@@ -75,7 +76,23 @@ class App extends Component {
 
     const newPersons = [...this.state.persons]
     newPersons[personIndex] = person
-    this.setState({persons: newPersons});
+    
+    /* This is a bad use of setState when new state depends on current state
+    this.setState({
+      persons: newPersons, 
+      //now, this.state could not have the right value
+      // depending on when React decides to invoque the render
+      changeCounter: this.state.changeCounter + 1
+    }); */
+    // When new state depends on current state, use as parameter
+    // a function that receives prevState and props and returns the new state.
+    this.setState((prevState, props) => {
+      return {
+        persons: newPersons, 
+        //now, prevState is guaranteed to have the right state.
+        changeCounter: prevState.changeCounter + 1
+      }
+    });
   }
 
   togglePersonsHandler = () => {
