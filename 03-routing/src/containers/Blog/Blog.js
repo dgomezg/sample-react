@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import axios from 'axios';
-import axios from '../../axios'; //Importing root axios.js with instance configs
+import { Route } from 'react-router-dom';
 
 import Posts from './Posts/Posts';
 import './Blog.css';
@@ -19,7 +19,9 @@ class Blog extends Component {
             </ul>
           </nav>
         </header>
-        <Posts/>
+        {/* <Route path="/" exact render={() => <Posts/>}/> 
+        <Route path="/" render={() => <p>This will be shown always as it does not have th 'exact'</p>}/>*/}
+        <Route path="/" exact component={Posts}/>
       </div>
     );
   }
