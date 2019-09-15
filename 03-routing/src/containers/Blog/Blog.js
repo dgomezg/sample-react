@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import Posts from './Posts/Posts';
+import NewPost from './NewPost/NewPost';
 import './Blog.css';
 
 
@@ -22,6 +23,7 @@ class Blog extends Component {
         {/* <Route path="/" exact render={() => <Posts/>}/> 
         <Route path="/" render={() => <p>This will be shown always as it does not have th 'exact'</p>}/>*/}
         <Route path="/" exact component={Posts}/>
+        <Route path="/new-post" component={NewPost}/>
       </div>
     );
   }
