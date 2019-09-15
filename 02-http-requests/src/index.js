@@ -16,34 +16,29 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 /* 
 Interceptors: global error handlers
 */
-/*
+//interceptors for the request.
 axios.interceptors.request.use(
-  req => {
-    console.log(req);
-    // Edit request config
-    return req;
+  request => {
+    console.log(request);
+    //Edit request config before returning it
+    return request;
   },
-  err => {
-    // Global handler (e.g. log error on file sent to server)
-    console.log(err);
-    // Forward error to local catch block to update UI informing user of error
-    return Promise.reject(err);
-  }
-);
+  //the 2nd function is the handler for errors IN SENDING THE REQUEST
+  error => {
+    console.log(error);
+    return Promise.reject(error);
+  });
 
-axios.interceptors.response.use(
-  res => {
-    console.log(res);
-    // Edit response config
-    return res;
+  //Interceptors for the response.
+axios.interceptors.response.use(response => {
+  console.log(response);
+  //Edit request config before returning it
+  return response;
   },
-  err => {
-    // Global handler (e.g. log error on file sent to server)
-    console.log(err);
-    // Forward error to local catch block to update UI informing user of error
-    return Promise.reject(err);
-  }
-);
-*/
+  error => {
+    console.log(error);
+    return Promise.reject(error);
+  }); 
+
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
