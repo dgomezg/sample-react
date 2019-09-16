@@ -1,4 +1,14 @@
 const { ApolloServer, gql } = require('apollo-server');
+const { RESTDataSource } = require('apollo-datasource-rest')
+const express = require('express');
+
+class CarDataAPI extends RESTDataSource {
+    async getCar() {
+        const data = await this.get('http://localhost:5000/carData')
+        console.log('getCar = ' + data)
+        return data
+    }
+}
 
 //create a memorydb
 const db = {
@@ -51,6 +61,7 @@ const schema = gql(`
     type Query {
         carsByType(type:CarTypes!): [Car]
         carsById(id:ID!): Car
+        carsAPI:Car
     }
     type Mutation {
         insertCar(brand: String!, color: String!, doors: Int!, type: CarTypes!): [Car]
@@ -65,13 +76,17 @@ const resolvers = {
         },
         carsById: (parent, args, context, info) => {
             return context.db.cars.filter(car => car.id === args.id)[0];
+        },
+        carsAPI: async (parent, args, context, info) => {
+            console.log("carsAPI: " + JSON.stringify(context, null, 2));
+            return await context.datasources.carDataAPI.getCar()
         }
     },
-    Car: {
-        brand: (parent, args, context, info) => {
-            return context.db.cars.filter(car => car.brand === parent.brand)[0].brand
-        }
-    },
+    // Car: {
+    //     brand: (parent, args, context, info) => {
+    //         return context.db.cars.filter(car => car.brand === parent.brand)[0].brand
+    //     }
+    // },
     Mutation: {
         insertCar: (_, {brand, color, doors, type }) => {
             context.db.cars.push({
@@ -97,6 +112,11 @@ const dbConnection = () => {
 const server = new ApolloServer({
     typeDefs: schema, 
     resolvers, 
+    datasources: () => {
+        return {
+            carDataAPI : new CarDataAPI()
+        }
+    },
     context: async () => {
         return { db : await dbConnection() }
     }
@@ -104,4 +124,17 @@ const server = new ApolloServer({
 
 server.listen().then( ({url}) => {
     console.log(`🚀 Server ready at ${url}`)
+}) 
+
+const app = express()
+app.get('/carData', function (req, res) {
+    res.send({
+        id: 'd',
+        brand: 'Honda',
+        color: 'Blue',
+        doors: 4,
+        type: 'Sedan'
+    })
 })
+
+app.listen(5000)
