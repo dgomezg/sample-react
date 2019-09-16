@@ -31,13 +31,15 @@ const typeDefs = `
         gender: String
     }
     type Query {
-        getAuthors: [Author],
+        getAuthors: [Author]
+        getAuthor(id: ID!): Author
     }
 `
 
 const resolvers = {
     Query: {
-        getAuthors: () => authors
+        getAuthors: () => authors,
+        getAuthor: (obj, { id } ) => authors.find(author => author.id === id) 
     }
 }
 
