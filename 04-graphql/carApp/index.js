@@ -83,32 +83,32 @@ const resolvers = () => {
 }
 
 //execute the Queries:
-// const CoupeCars = `
-//     {
-//         carsByType(type:Coupe){
-//             brand
-//             color
-//             type
-//             id
-//         }
-//     }
-// `
-// graphql(schema, CoupeCars, resolvers())
-//     .then(response => console.log(response.data));
+const CoupeCars = `
+    {
+        carsByType(type:Coupe){
+            brand
+            color
+            type
+            id
+        }
+    }
+`
+graphql(schema, CoupeCars, resolvers())
+    .then(response => console.log(response.data));
 
-// const carA = `
-// {
-//     carsById(id:"a"){
-//         brand
-//         type
-//         color
-//         id
-//     }
-// }
-// `
+const carA = `
+{
+    carsById(id:"a"){
+        brand
+        type
+        color
+        id
+    }
+}
+`
 
-// graphql(schema, carA, resolvers())
-//     .then(response => console.log(response.data));
+graphql(schema, carA, resolvers())
+    .then(response => console.log(response.data));
 
 //Insert a new car using mutaiton operation
 const mutation = `
@@ -121,6 +121,6 @@ mutation {
 }
 ` 
  
-graphql(schema, mutation, resolvers)
+graphql(schema, mutation, resolvers())
     .then(response => console.log(response));
 
