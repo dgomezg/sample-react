@@ -64,11 +64,9 @@ const resolvers = () => {
         return db.cars.filter(car => car.type === args.type)
     }
     const carsById = args => {
-        console.log("CarsById")
         return db.cars.filter(car => car.id === args.id)[0]
     }
     const insertCar = ({ brand, color, doors, type }) => {
-        console.log("insertCar")
         db.cars.push({
             id: Math.random().toString(),
             brand: brand,
@@ -76,7 +74,6 @@ const resolvers = () => {
             doors: doors, 
             type: type
         });
-        console.log(db.cars);
         return db.cars
     }
     return {carsByType, carsById, insertCar}
@@ -113,7 +110,7 @@ graphql(schema, carA, resolvers())
 //Insert a new car using mutaiton operation
 const mutation = `
 mutation {
-    insertCar(brand: "Mitsubitshi", color: "gray", doors: 5, type: SUV){
+    insertCar(brand: "Opel", color: "gray", doors: 5, type: SUV){
         brand
         color
         id
@@ -122,5 +119,21 @@ mutation {
 ` 
  
 graphql(schema, mutation, resolvers())
-    .then(response => console.log(response));
+    .then(response => console.log(response.data));
 
+const mutationWithVariables = `
+mutation insertCar($brand: String!, $color: String!, $doors: Int!, $type: CarTypes!){
+    insertCar(brand: $brand, color: $color, doors: $doors, type: $type){
+        brand
+        color
+        id
+    }
+}
+`
+
+graphql(schema, mutationWithVariables, resolvers(), null, {
+    brand: 'Renault', 
+    color: 'Red',
+    doors: 5,
+    type: 'Coupe'
+}).then(response => console.log(response.data));
