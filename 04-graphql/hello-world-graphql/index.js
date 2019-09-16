@@ -16,6 +16,6 @@ const resolvers = () => {
 
 //execute the query
 graphql(schema, '{ message }', resolvers())
-    .then(response => console.log(response) );
+    .then(response => console.log(response.data) );
 
 
