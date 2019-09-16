@@ -1,5 +1,6 @@
-const { graphql, buildSchema } = require('graphql')
-
+const { graphql, buildSchema } = require('graphql');
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
 
 //create a memorydb
 const db = {
@@ -79,61 +80,13 @@ const resolvers = () => {
     return {carsByType, carsById, insertCar}
 }
 
-//execute the Queries:
-const CoupeCars = `
-    {
-        carsByType(type:Coupe){
-            brand
-            color
-            type
-            id
-        }
-    }
-`
-graphql(schema, CoupeCars, resolvers())
-    .then(response => console.log(response.data));
+const app = express()
 
-const carA = `
-{
-    carsById(id:"a"){
-        brand
-        type
-        color
-        id
-    }
-}
-`
+app.use(
+    '/graphql',
+    graphqlHTTP({schema: schema, rootValue: resolvers(), graphiql: true })
+)
 
-graphql(schema, carA, resolvers())
-    .then(response => console.log(response.data));
+app.listen(3000)
 
-//Insert a new car using mutaiton operation
-const mutation = `
-mutation {
-    insertCar(brand: "Opel", color: "gray", doors: 5, type: SUV){
-        brand
-        color
-        id
-    }
-}
-` 
- 
-graphql(schema, mutation, resolvers())
-    .then(response => console.log(response.data));
-
-const mutationWithVariables = `
-mutation insertCar($brand: String!, $color: String!, $doors: Int!, $type: CarTypes!){
-    insertCar(brand: $brand, color: $color, doors: $doors, type: $type){
-        brand
-        color
-        id
-    }
-}
-`
-
-graphql(schema, mutationWithVariables, resolvers(), null, {
-    brand: 'Renault', 
-    color: 'Red',
-    doors: 5,
-    type: 'Coupe'
-}).then(response => console.log(response.data));
+console.log("GraphQL server is listening on port 3000");
