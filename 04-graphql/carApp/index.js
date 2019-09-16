@@ -1,6 +1,4 @@
-const { graphql, buildSchema } = require('graphql');
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
+const { ApolloServer, gql } = require('apollo-server');
 
 //create a memorydb
 const db = {
@@ -37,7 +35,7 @@ const db = {
 }
 
 //Define the schema
-const schema = buildSchema(`
+const schema = gql(`
     enum CarTypes {
         Sedan
         SUV
@@ -60,33 +58,39 @@ const schema = buildSchema(`
 `)
 
 //Create the resolvers
-const resolvers = () => {
-    const carsByType = args => {
-        return db.cars.filter(car => car.type === args.type)
+const resolvers = {
+    Query: {
+        carsByType: (parent, args, context, info) => {
+            return db.cars.filter(car => car.type == args.type);
+        },
+        carsById: (parent, args, context, info) => {
+            return db.cars.filter(car => car.id === args.id)[0];
+        }
+    },
+    Car: {
+        brand: (parent, args, context, info) => {
+            return db.cars.filter(car => car.brand === parent.brand)[0].brand
+        }
+    },
+    Mutation: {
+        insertCar: (_, {brand, color, doors, type }) => {
+            db.cars.push({
+                id: Math.random().toString(),
+                brand: brand,
+                color: color, 
+                doors: doors,
+                type: type
+            })
+            return db.cars
+        }
     }
-    const carsById = args => {
-        return db.cars.filter(car => car.id === args.id)[0]
-    }
-    const insertCar = ({ brand, color, doors, type }) => {
-        db.cars.push({
-            id: Math.random().toString(),
-            brand: brand,
-            color: color,
-            doors: doors, 
-            type: type
-        });
-        return db.cars
-    }
-    return {carsByType, carsById, insertCar}
 }
 
-const app = express()
+const server = new ApolloServer({
+    typeDefs: schema, 
+    resolvers
+})
 
-app.use(
-    '/graphql',
-    graphqlHTTP({schema: schema, rootValue: resolvers(), graphiql: true })
-)
-
-app.listen(3000)
-
-console.log("GraphQL server is listening on port 3000");
+server.listen().then( ({url}) => {
+    console.log(`🚀 Server ready at ${url}`)
+})
