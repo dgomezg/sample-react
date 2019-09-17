@@ -5,7 +5,7 @@ const typeDefs = `
     }
     type Person {
         name: String!
-        age: Int!
+        age: Int
         gender: String
     }
     type DeleteMessage {

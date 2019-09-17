@@ -1,5 +1,6 @@
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
+const { createServer } = require('http');
 const typeDefs = require('./schema');
 const resolvers = require('./resolver');
 
@@ -11,7 +12,11 @@ const app = express();
 server.applyMiddleware({
     app, path: '/graphql'
 })
+
+//Define a websockets Server that admits subscriptions.
+const httpServer = createServer(app);
+server.installSubscriptionHandlers(httpServer);
  
-app.listen(PORT, () => {
-    console.log('Server running on port: ', PORT);
+httpServer.listen(PORT, () => {
+    console.log(`Server ready at http://localhost:${PORT}${server.graphqlPath} `);
 });
