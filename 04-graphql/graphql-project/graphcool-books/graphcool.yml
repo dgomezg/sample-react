@@ -32,8 +32,22 @@ functions:
 # Read more here:
 # https://www.graph.cool/docs/reference/auth/authorization/overview-iegoo0heez
 permissions:
-  - operation: "*"
-
+  - operation: "User.create"
+  - operation: "User.read"
+  - operation: "Book.create"
+    authenticated: true
+  - operation: "Book.read"
+    authenticated: true
+    query: ./permisions/book.graphql
+  - operation: "Book.update"
+    authenticated: true
+    query: ./permisions/book.graphql
+  - operation: "Book.delete"
+    authenticated: true
+    query: ./permisions/book.graphql
+  - operation: "UserBooks.connect"
+    authenticated: true
+    query: ./permisions/book.graphql
 
 # Your root tokens used for functions to get full access to the API
 # Read more here:
