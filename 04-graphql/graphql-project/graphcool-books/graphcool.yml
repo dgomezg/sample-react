@@ -57,6 +57,7 @@ permissions:
   - operation: "User.read"
   - operation: "Book.create"
     authenticated: true
+    query: ./permissions/book.graphql
   - operation: "Book.read"
     authenticated: true
     query: ./permissions/book.graphql
