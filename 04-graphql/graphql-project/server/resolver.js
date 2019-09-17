@@ -1,4 +1,8 @@
 const authors = require('./author');
+const {PubSub} = require('apollo-server-express');
+const pubsub = new PubSub();
+
+const AUTHORS_TOPIC = "newAuthor";
 
 const resolvers = {
     Query: {
@@ -16,6 +20,7 @@ const resolvers = {
                 }
             }
             authors.push( newAuthor );
+            pubsub.publish(AUTHORS_TOPIC, { createAuthorWithSubscription: newAuthor });
             return newAuthor;
         },
         updateAuthor: (obj, {id, name, gender, age}) => {
@@ -47,6 +52,12 @@ const resolvers = {
                     message: `author ${id} could not be deleted because was not found`
                 }
             }
+        }
+    },
+
+    Subscription: {
+        createAuthorWithSubscription: {
+            subscribe: () => pubsub.asyncIterator(AUTHORS_TOPIC)
         }
     }
 }
