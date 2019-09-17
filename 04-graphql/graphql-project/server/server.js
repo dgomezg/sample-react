@@ -84,12 +84,12 @@ const resolvers = {
                 authors.splice(authorIndex, 1);
                 return {
                     id: id,
-                    message: `author $id removed sucessfully`
+                    message: `author ${id} removed sucessfully`
                 }
             } else {
                 return {
                     id: id,
-                    message: `author $id could not be deleted because was not found`
+                    message: `author ${id} could not be deleted because was not found`
                 }
             }
         }
