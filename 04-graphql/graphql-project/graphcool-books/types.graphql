@@ -5,10 +5,21 @@ type User @model {
   id: ID! @isUnique
   name: String
   dateOfBirth: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 
-  # Uncomment below - you can declare relations between models like this
+  books: [Book!]! @relation(name: "UserBooks")
+}
 
-  # posts: [Post!]! @relation(name: "UserPosts")
+type Book @model {
+  id: ID! @isUnique
+  title: String!
+  description: String!
+  #createdAt and UpdatedAt fields are automatically handled by graphcool
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  owner: User! @relation(name: "UserBooks")
 }
 
 
