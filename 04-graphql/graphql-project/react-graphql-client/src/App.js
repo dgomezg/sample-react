@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from "material-ui/AppBar";
+import Books from './components/Books/Books';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 import './App.css';
@@ -9,7 +10,7 @@ function App() {
     <div className="App">
         <MuiThemeProvider>
           <AppBar title="GraphQL React" />
-          <p>BooksComponent</p>
+          <Books/>
         </MuiThemeProvider>
     </div>
   );
