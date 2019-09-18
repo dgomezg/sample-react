@@ -1,18 +1,18 @@
 type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
+  fetchAllBooks: [Book!]!
 }
 
 type Mutation {
-  createDraft(title: String!, content: String): Post
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
 }
 
-type Post {
-  id: ID!
-  published: Boolean!
+type Book {
+  id: ID! 
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
   title: String!
-  content: String!
-}
+  description: String!
+} 
+
+scalar DateTime

@@ -5,13 +5,13 @@ var typeDefs = require("./prisma-schema").typeDefs;
 
 var models = [
   {
-    name: "Book",
+    name: "Post",
     embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `https://eu1.prisma.sh/public-desertraver-225/prisma-books/dev`
+  endpoint: `https://eu1.prisma.sh/public-lavasalmon-578/prisma-posts/dev`
 });
 exports.prisma = new exports.Prisma();
