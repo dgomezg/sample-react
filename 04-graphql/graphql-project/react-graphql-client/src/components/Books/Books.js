@@ -11,6 +11,7 @@ const getBooksQuery = gql`
         organizations{
             items{
                 id
+                name
                 comment
             }
             page
@@ -36,7 +37,17 @@ class Books extends Component {
         )
     else return (
         <div>
-            {organizations.totalCount} organizations Loaded
+    
+            <p>{organizations.totalCount} organizations Loaded</p>
+            <div>
+                {organizations.items.map(organization => (
+                    <div key={organization.id}>
+                        <p>{organization.name}</p>
+                        <p>{organization.comment}</p>
+                    </div>
+                ))}
+            </div>
+
         </div>
     )
     return <div> Books Component </div>;
