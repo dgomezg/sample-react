@@ -49,5 +49,7 @@ const styles = {
     }
 }
 
-const BooksComponentWithData = graphql(getBooksQuery)(Books);
+const BooksComponentWithData = graphql(getBooksQuery, {
+
+})(Books);
 export default BooksComponentWithData;

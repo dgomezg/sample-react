@@ -12,11 +12,19 @@ import { ApolloProvider } from 'react-apollo';
 
 import './App.css';
 
+import { setContext } from 'apollo-link-context';
+
+const authLink = setContext((_, { headers }) => {
+    return  {
+        headers: Object.assign({}, headers, { Authorization: 'Basic dGVzdDp0ZXN0'})
+    }
+});
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: 'http://liferay-gs-ci:8091/o/graphql'}),
+  link: authLink.concat(new HttpLink({ uri: 'http://liferay-gs-ci:8091/o/graphql'})),
   cache: new InMemoryCache()
 });
+
 function App() {
   return (
     <div className="App">
