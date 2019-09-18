@@ -20,9 +20,18 @@ const authLink = setContext((_, { headers }) => {
     }
 });
 
+const defaultOptions = {
+  query: {
+    fetchPolicy: 'cache-and-network',
+    errorPolicy: 'all'
+  }
+};
+
+
 const client = new ApolloClient({
   link: authLink.concat(new HttpLink({ uri: 'http://liferay-gs-ci:8091/o/graphql'})),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(), 
+  defaultOptions
 });
 
 function App() {
