@@ -3,15 +3,23 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
-
+import { setContext } from 'apollo-link-context';
 
 import TravelSelectorWithData from './components/TravelSelector/TravelSelector';
 
 
 import './App.css';
 
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: Object.assign({}, headers, { Authorization: 'Basic dGVzdDp0ZXN0' })
+  }
+})
+
+const BACKEND_URL = 'http://liferay-gs-ci:8091'
+
 const apolloClient = new ApolloClient({
-  link: new HttpLink({uri: 'http://liferay-gs:8091/o/graphql'}), 
+  link: authLink.concat(new HttpLink({uri: BACKEND_URL+'/o/graphql'})), 
   cache: new InMemoryCache()
 });
 
