@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 
 
-import TravelSelector from './components/TravelSelector/TravelSelector';
+import TravelSelectorWithData from './components/TravelSelector/TravelSelector';
 
 
 import './App.css';
@@ -21,7 +21,7 @@ function App() {
       <header className="App-header">
         <div>Header-banner</div>
         <ApolloProvider client={apolloClient}>
-          <TravelSelector/>
+          <TravelSelectorWithData/>
           <div>Travel detail</div>
         </ApolloProvider>
       </header>
