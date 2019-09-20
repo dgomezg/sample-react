@@ -1,4 +1,6 @@
 import React from 'react';
+import TravelSelector from './components/TravelSelector/TravelSelector';
+
 import './App.css';
 
 function App() {
@@ -6,15 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>Header-banner</div>
-          <div>
-            <h2>Choose your Travel</h2>
-            <ul>
-              <li>Travel 1</li>
-              <li>Travel 2</li>
-              <li>Travel 3</li>
-            </ul>
-          </div>
-
+          <TravelSelector/>
           <div>Travel detail</div>
       </header>
     </div>
