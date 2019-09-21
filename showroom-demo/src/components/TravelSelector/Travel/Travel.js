@@ -15,7 +15,7 @@ const travel = (props) => {
     return (
         <div className="Travel">
             <h3>{props.title}</h3>
-            <img src={BACKEND_URL+backgroundImage}></img>
+            <img style={{width: '200px'}} src={BACKEND_URL+backgroundImage}></img>
         </div>
     );
 }
