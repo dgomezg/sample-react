@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Travel from './Travel/Travel';
+import ErrorPanel from '../UI/ErrorPanel/ErrorPanel';
+import Spinner from '../UI/Spinner/Spinner'
 
 import { graphql } from 'react-apollo';
 
@@ -46,19 +48,14 @@ class TravelSelector extends Component {
 
     render() {
         let {error, loading, destinations} = this.props.data;
-        if (error){
-            console.log("Error: " + error.message);
-            return <div>An error ocurred while retrieving destinations {error.message}</div>
-        } else if (loading) {
-            console.log("Loading data");
-            return (
-                <div>Loading data...</div>
-            )
-        } else {
-            console.log("destinations: ", this.props.data)
-            return (
+        if (error)
+            return <ErrorPanel error={error}/>
+         else if (loading) 
+            return <Spinner/>
+         else {
+          console.log("destinations: ", this.props.data);
+          return (
                 <div>
-                    <h2>Choose your Travel</h2>
                     <p> {destinations.totalCount} available destinations</p>
                     <div className="Travels">
                         {destinations.items.map(destination => (
