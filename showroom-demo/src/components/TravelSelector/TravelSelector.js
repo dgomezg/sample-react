@@ -5,22 +5,6 @@ import { graphql } from 'react-apollo';
 
 import gql from 'graphql-tag';
 
-// const getDestinationsQuery = gql`
-//     query{
-//         organizations{
-//             items{
-//                 id
-//                 name
-//                 comment
-//             }
-//             page
-//             pageSize
-//             totalCount
-//         }
-//     }
-// `
-
-
 const getDestinationsQuery = gql`
 query {
   destinations: contentSetContentSetElements(contentSetId: 35128) {
@@ -59,7 +43,6 @@ query {
 `;
 
 class TravelSelector extends Component {
-    
 
     render() {
         let {error, loading, destinations} = this.props.data;
@@ -76,7 +59,7 @@ class TravelSelector extends Component {
             return (
                 <div>
                     <h2>Choose your Travel</h2>
-                    <p> {destinations.totalCount} destinations Available</p>
+                    <p> {destinations.totalCount} available destinations</p>
                     <div className="Travels">
                         {destinations.items.map(destination => (
                             <Travel 
