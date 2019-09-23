@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Travel from './Travel/Travel';
 import ErrorPanel from '../UI/ErrorPanel/ErrorPanel';
 import Spinner from '../UI/Spinner/Spinner'
+import AwesomeSlider from 'react-awesome-slider';
 
 import { graphql } from 'react-apollo';
 
@@ -46,6 +47,10 @@ query {
 
 class TravelSelector extends Component {
 
+    state = {
+      selectedDestination : null
+    }
+
     render() {
         let {error, loading, destinations} = this.props.data;
         if (error)
@@ -59,13 +64,20 @@ class TravelSelector extends Component {
                     <p> {destinations.totalCount} available destinations</p>
                     <div className="Travels">
                         {destinations.items.map(destination => (
+                          <div>
                             <Travel 
                                 key={destination.id}
                                 title={destination.title}
                                 details={destination.content.details}
                             />
+                          </div>
                         ))}
                     </div>
+                    <AwesomeSlider>
+                        <div>{this.state.selectedDestination? this.state.selectedDestination.title: 'No destination selected'}</div>
+                        <div>Select a destination</div>
+                        <div>2</div>
+                    </AwesomeSlider>
                 </div>
          );
         }

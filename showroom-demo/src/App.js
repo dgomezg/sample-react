@@ -30,7 +30,6 @@ function App() {
         <div>Header-banner</div>
         <ApolloProvider client={apolloClient}>
           <TravelSelectorWithData/>
-          <div>Travel detail</div>
         </ApolloProvider>
       </header>
     </div>
