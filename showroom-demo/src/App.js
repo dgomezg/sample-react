@@ -7,7 +7,6 @@ import { setContext } from 'apollo-link-context';
 
 import TravelSelectorWithData from './components/TravelSelector/TravelSelector';
 
-
 import './App.css';
 
 const authLink = setContext((_, { headers }) => {
