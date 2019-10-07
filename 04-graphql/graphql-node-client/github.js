@@ -1,6 +1,6 @@
-import 'cross-fetch/polyfill';
-import ApolloClient, { gql } from 'apollo-boost';
-import 'dotenv/config';
+require( 'cross-fetch/polyfill');
+const { ApolloClient, gql } = require('apollo-boost');
+require('dotenv/config');
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',

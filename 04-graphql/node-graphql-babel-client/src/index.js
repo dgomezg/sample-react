@@ -4,7 +4,8 @@ import ApolloClient, { gql } from 'apollo-boost';
 import 'dotenv/config';
 
 
-const BACKEND_URL = 'http://localhost:8091'
+//const BACKEND_URL = 'http://localhost:8091'
+const BACKEND_URL = 'https://avoco.serveo.net'
 
 const client = new ApolloClient({
   uri: BACKEND_URL+'/o/graphql', 
@@ -84,7 +85,7 @@ client
   .then(response => {
     var render = response.data.destinations.items.map(destination => destination.title
     );
-    console.log(render);
+    console.log(render.join(' or '));
   })
   .catch(error => console.log(error));
 
