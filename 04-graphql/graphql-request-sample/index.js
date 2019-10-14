@@ -1,7 +1,7 @@
 const { GraphQLClient } = require('graphql-request');
 
-const GRAPHQL_ENDPOINT = 'https://avoco.serveo.net';
-//const GRAPHQL_ENDPOINT = 'http://localhost:8091';
+//const GRAPHQL_ENDPOINT = 'https://avoco.serveo.net';
+const GRAPHQL_ENDPOINT = 'http://localhost:8091';
 
 const graphQLClient = new GraphQLClient(GRAPHQL_ENDPOINT+'/o/graphql', {
     headers: {
